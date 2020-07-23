@@ -1,66 +1,11 @@
 Change log
 -----------
 
-# v2.53.8
+# v2.53.3
 ## (2020-07-23)
 
 * resin-supervisor: Create required directories before launch [Alex Gonzalez]
-
-# v2.53.7
-## (2020-07-23)
-
-
-<details>
-<summary> balena-supervisor: Update to v11.9.8 [Florin Sarbu] </summary>
-
-> ## balena-supervisor-11.9.8
-> ### (2020-07-22)
-> 
-> * Bump lodash from 4.17.15 to 4.17.19 [dependabot[bot]]
-> 
-> ## balena-supervisor-11.9.7
-> ### (2020-07-22)
-> 
-> * docker-utils: Test network gateway determination logic [Rich Bayliss]
-> * Fix docker-util using incorrect reference for function [Miguel Casqueira]
-> 
-</details>
-
-# v2.53.6
-## (2020-07-21)
-
-* recipes-containers/balena: Use separate service for loading healthcheck image [Alexandru Costache]
-
-# v2.53.5
-## (2020-07-21)
-
-
-<details>
-<summary> balena-supervisor: Update to v11.9.6 [Rich Bayliss] </summary>
-
-> ## balena-supervisor-11.9.6
-> ### (2020-07-20)
-> 
-> * Fix purge and restart invocations by providing instanced apps [Cameron Diver]
-> * Fix purge invocations of new singletons [Cameron Diver]
-> 
-> ## balena-supervisor-11.9.5
-> ### (2020-07-14)
-> 
-> * Update ESR version information [Cameron Diver]
-> 
-</details>
-
-# v2.53.4
-## (2020-07-21)
-
-* Add support for aufs5 on kernel 5.x variants [Florin Sarbu]
-* Force choosing busybox-hwclock over util-linux-hwclock [Alex Gonzalez]
-
-# v2.53.3
-## (2020-07-16)
-
-* provisioning: provide base supervisor_version during provision [Matthew McGinn]
+* kernel-resin: Make balena-engine related configuration built-in [Alex Gonzalez]
 
 # v2.53.2
 ## (2020-07-16)
