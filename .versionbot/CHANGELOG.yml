@@ -1,4 +1,23 @@
 - commits:
+    - subject: Respect balenaRootCA system-wide
+      hash: 28d68725561b859b87d69a440b302273fe22c313
+      body: |
+        We allow the user to specify a custom CA in the .balenaRootCA key
+        of config.json but at this moment this is only respected by
+        the supervisor. This commit adds it to the system-wide CA bundle
+        so that the CA is respected everywhere.
+
+        Fixes #1398
+      footer:
+        Change-type: minor
+        change-type: minor
+        Signed-off-by: Michal Toman <michalt@balena.io>
+        signed-off-by: Michal Toman <michalt@balena.io>
+      author: Michal Toman
+      nested: []
+  version: 2.54.0
+  date: 2020-07-27T10:23:46.104Z
+- commits:
     - subject: 'balena-supervisor: Update to v11.9.9'
       hash: b991ede01e5140ef04f2e6fe9baa37a8ded95ab5
       body: |
