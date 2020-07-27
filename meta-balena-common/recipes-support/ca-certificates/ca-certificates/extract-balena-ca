@@ -1,0 +1,46 @@
+#!/bin/sh
+
+CONFIG_JSON="/mnt/boot/config.json"
+CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
+JSON_CA_KEY=".balenaRootCA"
+BALENA_CA_FILE="/usr/share/ca-certificates/balena/balenaRootCA.crt"
+
+log () {
+  echo "$1" >&2
+}
+
+RAW_DEST_FILE=$(mktemp)
+if ! jq -r "${JSON_CA_KEY}" < "${CONFIG_JSON}" > "${RAW_DEST_FILE}" 2>&1
+then
+  log "The config.json file does not contain custom CA"
+  rm -f "${RAW_DEST_FILE}"
+  exit 0
+fi
+
+log "Found custom CA in config.json"
+
+DEST_FILE=$(mktemp)
+if ! base64 -d "${RAW_DEST_FILE}" > "${DEST_FILE}" 2> /dev/null
+then
+  log "Unable to base64-decode the custom CA from config.json"
+  rm -f "${RAW_DEST_FILE}" "${DEST_FILE}"
+  exit 1
+fi
+
+if diff "${DEST_FILE}" "${BALENA_CA_FILE}" > /dev/null 2>&1
+then
+  log "The custom CA from config.json is already installed"
+  rm -f "${RAW_DEST_FILE}" "${DEST_FILE}"
+  exit 0
+fi
+
+log "Adding the custom CA from config.json"
+
+# Copy new CA to its place
+cp -a "${DEST_FILE}" "${BALENA_CA_FILE}"
+
+# Rebuild the CA bundle - for this we need to make /etc/ssl/certs writable
+systemctl start bind-etc-ssl-certs.service
+update-ca-certificates
+
+rm -f "${RAW_DEST_FILE}" "${DEST_FILE}"

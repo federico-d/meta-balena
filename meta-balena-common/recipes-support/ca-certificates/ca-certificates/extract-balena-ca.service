@@ -1,0 +1,12 @@
+[Unit]
+Description=Regenerate CA certificates
+After=bind-etc-ssl-certs.service bind-usr-share-ca-certificates-balena.service
+Requires=bind-etc-ssl-certs.service bind-usr-share-ca-certificates-balena.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/extract-balena-ca
+
+[Install]
+WantedBy=multi-user.target
