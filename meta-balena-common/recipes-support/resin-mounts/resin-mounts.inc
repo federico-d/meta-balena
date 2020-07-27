@@ -22,6 +22,8 @@ BINDMOUNTS += " \
 	/etc/NetworkManager/conf.d \
 	/etc/NetworkManager/system-connections \
 	/etc/udev/rules.d \
+	/etc/ssl/certs \
+	/usr/share/ca-certificates/balena \
 	/home/root/.rnd \
 	/var/lib/bluetooth \
 	/var/lib/NetworkManager \
@@ -63,6 +65,9 @@ do_compile () {
 		elif [ "$bindmount" = "/etc/udev/rules.d" ]; then
 			# This bind mount needs to be running before the udev service starts for os-udevrules
 			sed -i -e "/^Before=/s/\$/ systemd-udevd.service/" "$servicefile"
+		elif [ "$bindmount" = "/etc/ssl/certs" ]; then
+			# This bind should only be started when a custom CA file exists
+			sed -i -e "/^Conflicts=/s,\$,\nConditionDirectoryNotEmpty=/usr/share/ca-certificates/balena," "$servicefile"
 		fi
 	done
 }
