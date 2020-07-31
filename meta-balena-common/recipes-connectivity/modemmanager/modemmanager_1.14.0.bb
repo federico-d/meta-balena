@@ -14,14 +14,13 @@ DEPENDS = "glib-2.0 libgudev dbus-glib intltool-native libxslt-native"
 SRC_URI = "http://www.freedesktop.org/software/ModemManager/ModemManager-${PV}.tar.xz"
 SRC_URI[md5sum] = "e8bea68b0cce6fe19cc71237aa2915c1"
 SRC_URI[sha256sum] = "8976e2f890380d35144d4d9146bc225d926ae72c9b48d7e50c1dd9674d2bd079"
-
-
 S = "${WORKDIR}/ModemManager-${PV}"
 
 PACKAGECONFIG ??= "mbim qmi \
     ${@bb.utils.filter('DISTRO_FEATURES', 'systemd polkit', d)} \
 "
 
+PACKAGECONFIG[at] = "--with-at-command-via-dbus"
 PACKAGECONFIG[systemd] = "--with-systemdsystemunitdir=${systemd_unitdir}/system/,,"
 PACKAGECONFIG[polkit] = "--with-polkit=yes,--with-polkit=no,polkit"
 # Support WWAN modems and devices which speak the Mobile Interface Broadband Model (MBIM) protocol.
@@ -31,9 +30,7 @@ PACKAGECONFIG[qmi] = "--with-qmi,--without-qmi,libqmi"
 
 EXTRA_OECONF = " \
     --with-udev-base-dir=${nonarch_base_libdir}/udev \
-    --with-at-command-via-dbus=yes \
 "
-
 EXTRA_OECONF_append_toolchain-clang = " --enable-more-warnings=no"
 
 FILES_${PN} += " \
