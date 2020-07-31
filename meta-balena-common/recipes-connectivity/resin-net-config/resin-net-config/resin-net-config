@@ -22,7 +22,7 @@ fi
 
 CONFIG_NM=${RESIN_BOOT_MOUNTPOINT}/system-connections/
 if [ -d "$CONFIG_NM" ]; then
-	cp -r "$CONFIG_NM" /etc/NetworkManager/
+	cp -rn "$CONFIG_NM" /etc/NetworkManager/
 	chmod 600 /etc/NetworkManager/system-connections/*
 fi
 
