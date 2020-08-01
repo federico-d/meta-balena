@@ -36,6 +36,7 @@ FILES_${PN} += " \
     ${datadir}/dbus-1 \
     ${libdir}/ModemManager \
     ${systemd_unitdir}/system \
+    ${datadir}/ModemManager \
 "
 
 FILES_${PN}-dev += " \
